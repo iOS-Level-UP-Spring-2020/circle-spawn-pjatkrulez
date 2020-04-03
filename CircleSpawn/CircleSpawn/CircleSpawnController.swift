@@ -28,7 +28,8 @@ class CircleSpawnController: UIViewController {
     
     func createCircle(tap: UITapGestureRecognizer) {
         let point = tap.location(in: self.view)
-        let circleView : UIView = UIView(frame: CGRect(x: point.x, y: point.y, width: 100, height: 100))
+        let circleView : UIView = UIView(frame: CGRect(origin: .zero, size: CGSize(width: 100, height: 100)))
+        circleView.center = point
         circleView.backgroundColor = UIColor.randomBrightColor()
         circleView.layer.cornerRadius = 50
         self.view.addSubview(circleView)
