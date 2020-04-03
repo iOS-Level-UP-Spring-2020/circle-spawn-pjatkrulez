@@ -32,7 +32,14 @@ class CircleSpawnController: UIViewController {
         circleView.center = point
         circleView.backgroundColor = UIColor.randomBrightColor()
         circleView.layer.cornerRadius = 50
+        UIView.animate(withDuration: 0.2) {
+            circleView.transform = CGAffineTransform(scaleX: 2, y: 2)
+        }
+        UIView.animate(withDuration: 0.1) {
+            circleView.transform = CGAffineTransform(scaleX: 1, y: 1)
+        }
         self.view.addSubview(circleView)
+        
     }
 
     func moveCircle(press: UILongPressGestureRecognizer) {
