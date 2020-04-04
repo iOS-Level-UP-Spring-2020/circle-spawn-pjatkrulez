@@ -18,6 +18,7 @@ class CircleSpawnController: UIViewController {
         tripleTapGesture.delaysTouchesBegan = true
         doubleTapGesture.require(toFail: tripleTapGesture)
         
+        self.view.addGestureRecognizer(tripleTapGesture)
         self.view.addGestureRecognizer(doubleTapGesture)
         self.view.addGestureRecognizer(longPressGesture)
         self.view.isMultipleTouchEnabled = true
@@ -70,29 +71,29 @@ class CircleSpawnController: UIViewController {
         let filteredSubviews = view.subviews.filter {
             subView -> Bool in return subView.frame.contains(point)
         }
-        guard let subviewPressed = filteredSubviews.first else {
+        guard let subviewPressed = filteredSubviews.last else {
             return
         }
         let center = subviewPressed.center
         switch press.state {
             case .began:
-            offsetX = point.x-center.x
-            offsetY = point.y-center.y
-            UIView.animate(withDuration: 0.2) {
-                subviewPressed.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
-                subviewPressed.alpha = 0.5
-            }
+                offsetX = point.x-center.x
+                offsetY = point.y-center.y
+                UIView.animate(withDuration: 0.2) {
+                    subviewPressed.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+                    subviewPressed.alpha = 0.5
+                }
             case .ended, .failed, .cancelled:
-            UIView.animate(withDuration: 0.2) {
-                subviewPressed.transform = CGAffineTransform(scaleX: 1, y: 1)
-                subviewPressed.alpha = 1
-            }
+                UIView.animate(withDuration: 0.2) {
+                    subviewPressed.transform = CGAffineTransform(scaleX: 1, y: 1)
+                    subviewPressed.alpha = 1
+                }
             case .changed:
-            subviewPressed.center = CGPoint(x: CGFloat(point.x-offsetX), y: CGFloat(point.y-offsetY))
+                subviewPressed.center = CGPoint(x: CGFloat(point.x-offsetX), y: CGFloat(point.y-offsetY))
             case .possible:
-            return
+                return
             @unknown default:
-            return
+                return
         }
     }
 
