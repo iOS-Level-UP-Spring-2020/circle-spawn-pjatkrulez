@@ -19,3 +19,9 @@ extension UIColor {
              alpha: 1.0)
   }
 }
+
+extension CircleSpawnController: UIGestureRecognizerDelegate {
+    public func gestureRecognizer(_: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith shouldRecognizeSimultaneouslyWithGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+}
