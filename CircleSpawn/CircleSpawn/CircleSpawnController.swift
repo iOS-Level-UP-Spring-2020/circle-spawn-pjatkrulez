@@ -8,6 +8,7 @@ class CircleSpawnController: UIViewController {
         let doubleTapGesture = UITapGestureRecognizer(target: self, action:  #selector(self.checkDoubleTap))
         let tripleTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.checkTripleTap))
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.checkLongPress))
+        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(self.checkPinchPress))
         
         doubleTapGesture.numberOfTapsRequired = 2
         tripleTapGesture.numberOfTapsRequired = 3
@@ -20,6 +21,7 @@ class CircleSpawnController: UIViewController {
         self.view.addGestureRecognizer(tripleTapGesture)
         self.view.addGestureRecognizer(doubleTapGesture)
         self.view.addGestureRecognizer(longPressGesture)
+        self.view.addGestureRecognizer(pinchGesture)
         self.view.isMultipleTouchEnabled = true
     }
 
@@ -33,6 +35,10 @@ class CircleSpawnController: UIViewController {
 
     @objc func checkLongPress(sender: UILongPressGestureRecognizer) {
         moveCircle(press: sender)
+    }
+    
+    @objc func checkPinchPress(sender: UIPinchGestureRecognizer){
+        
     }
 
     func createCircle(tap: UITapGestureRecognizer) {
@@ -66,7 +72,9 @@ class CircleSpawnController: UIViewController {
         })
         
     }
-    
+    func moveWwoCircles(press: UIPinchGestureRecognizer) {
+        
+    }
     func moveCircle(press: UILongPressGestureRecognizer) {
         var offsetX: CGFloat = 0
         var offsetY: CGFloat = 0
