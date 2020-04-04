@@ -56,7 +56,7 @@ class CircleSpawnController: UIViewController {
         let filteredSubviews = view.subviews.filter {
             subView -> Bool in return subView.frame.contains(point)
         }
-        guard let subviewPressed = filteredSubviews.first else {
+        guard let subviewPressed = filteredSubviews.last else {
             return
         }
         UIView.animate(withDuration: 0.2) {
