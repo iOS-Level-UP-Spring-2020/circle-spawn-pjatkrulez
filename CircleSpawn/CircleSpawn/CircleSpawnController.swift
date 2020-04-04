@@ -10,12 +10,14 @@ class CircleSpawnController: UIViewController {
         let doubleTapGesture = UITapGestureRecognizer(target: self, action:  #selector(self.checkDoubleTap))
         let tripleTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.checkTripleTap))
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.checkLongPress))
-        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(self.checkPinchPress))
+        //let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(self.checkPinchPress))
+        let multiFingerGesture = MultiTouchRecognizer(target: self, action: #selector(self.checkMultiFingers))
         
         doubleTapGesture.numberOfTapsRequired = 2
         tripleTapGesture.numberOfTapsRequired = 3
         doubleTapGesture.delegate = self
         tripleTapGesture.delegate = self
+        multiFingerGesture.delegate = self
         doubleTapGesture.delaysTouchesBegan = true
         tripleTapGesture.delaysTouchesBegan = true
         doubleTapGesture.require(toFail: tripleTapGesture)
@@ -23,8 +25,9 @@ class CircleSpawnController: UIViewController {
         self.view.addGestureRecognizer(tripleTapGesture)
         self.view.addGestureRecognizer(doubleTapGesture)
         self.view.addGestureRecognizer(longPressGesture)
-        self.view.addGestureRecognizer(pinchGesture)
+        self.view.addGestureRecognizer(multiFingerGesture)
         self.view.isMultipleTouchEnabled = true
+        self.view.isUserInteractionEnabled = true
     }
 
     @objc func checkDoubleTap(sender : UITapGestureRecognizer) {
@@ -39,9 +42,10 @@ class CircleSpawnController: UIViewController {
         moveCircle(press: sender)
     }
     
-    @objc func checkPinchPress(sender: UIPinchGestureRecognizer){
-        
+    @objc func checkMultiFingers(sender: MultiTouchRecognizer){
+        detectMultipleFingers(fingers: sender)
     }
+    
 
     func createCircle(tap: UITapGestureRecognizer) {
         let point = tap.location(in: self.view)
@@ -74,9 +78,12 @@ class CircleSpawnController: UIViewController {
         })
         
     }
-    func moveWwoCircles(press: UIPinchGestureRecognizer) {
-        
+    
+    func detectMultipleFingers(fingers: MultiTouchRecognizer){
+        print("MULTIPLE FINGERS")
     }
+    
+    
     func moveCircle(press: UILongPressGestureRecognizer) {
         let point = press.location(in: self.view)
         let filteredSubviews = view.subviews.filter {
