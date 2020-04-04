@@ -20,14 +20,17 @@ class CircleSpawnController: UIViewController {
         multiFingerGesture.delegate = self
         doubleTapGesture.delaysTouchesBegan = true
         tripleTapGesture.delaysTouchesBegan = true
+        multiFingerGesture.delaysTouchesBegan = true
         doubleTapGesture.require(toFail: tripleTapGesture)
+        multiFingerGesture.require(toFail: doubleTapGesture)
         
         self.view.addGestureRecognizer(tripleTapGesture)
         self.view.addGestureRecognizer(doubleTapGesture)
-        self.view.addGestureRecognizer(longPressGesture)
+        //self.view.addGestureRecognizer(longPressGesture)
         self.view.addGestureRecognizer(multiFingerGesture)
         self.view.isMultipleTouchEnabled = true
         self.view.isUserInteractionEnabled = true
+
     }
 
     @objc func checkDoubleTap(sender : UITapGestureRecognizer) {
@@ -80,6 +83,7 @@ class CircleSpawnController: UIViewController {
     }
     
     func detectMultipleFingers(fingers: MultiTouchRecognizer){
+        
     }
     
     
