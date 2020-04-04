@@ -93,8 +93,10 @@ class CircleSpawnController: UIViewController {
             return
         }
         let center = subviewPressed.center
+        self.view.bringSubviewToFront(subviewPressed)
+        
         switch press.state {
-            case .began:
+        case .began:
                 offsetX = point.x-center.x
                 offsetY = point.y-center.y
                 UIView.animate(withDuration: 0.2) {
@@ -114,5 +116,4 @@ class CircleSpawnController: UIViewController {
                 return
         }
     }
-
 }
