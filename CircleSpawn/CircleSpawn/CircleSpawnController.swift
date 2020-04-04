@@ -10,25 +10,18 @@ class CircleSpawnController: UIViewController {
         let doubleTapGesture = UITapGestureRecognizer(target: self, action:  #selector(self.checkDoubleTap))
         let tripleTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.checkTripleTap))
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.checkLongPress))
-        //let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(self.checkPinchPress))
-        let multiFingerGesture = MultiTouchRecognizer(target: self, action: #selector(self.checkMultiFingers))
         
         doubleTapGesture.numberOfTapsRequired = 2
         tripleTapGesture.numberOfTapsRequired = 3
         doubleTapGesture.delegate = self
         tripleTapGesture.delegate = self
-        multiFingerGesture.delegate = self
         doubleTapGesture.delaysTouchesBegan = true
         tripleTapGesture.delaysTouchesBegan = true
-        multiFingerGesture.delaysTouchesBegan = true
         doubleTapGesture.require(toFail: tripleTapGesture)
-        multiFingerGesture.require(toFail: doubleTapGesture)
         
         self.view.addGestureRecognizer(tripleTapGesture)
         self.view.addGestureRecognizer(doubleTapGesture)
-        //self.view.addGestureRecognizer(longPressGesture)
-        self.view.addGestureRecognizer(multiFingerGesture)
-        self.view.isMultipleTouchEnabled = true
+        self.view.addGestureRecognizer(longPressGesture)
         self.view.isUserInteractionEnabled = true
 
     }
@@ -44,11 +37,6 @@ class CircleSpawnController: UIViewController {
     @objc func checkLongPress(sender: UILongPressGestureRecognizer) {
         moveCircle(press: sender)
     }
-    
-    @objc func checkMultiFingers(sender: MultiTouchRecognizer){
-        detectMultipleFingers(fingers: sender)
-    }
-    
 
     func createCircle(tap: UITapGestureRecognizer) {
         let point = tap.location(in: self.view)
@@ -81,11 +69,6 @@ class CircleSpawnController: UIViewController {
         })
         
     }
-    
-    func detectMultipleFingers(fingers: MultiTouchRecognizer){
-        
-    }
-    
     
     func moveCircle(press: UILongPressGestureRecognizer) {
         let point = press.location(in: self.view)
