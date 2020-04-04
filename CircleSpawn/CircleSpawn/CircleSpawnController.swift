@@ -80,23 +80,25 @@ class CircleSpawnController: UIViewController {
     }
     
     func detectMultipleFingers(fingers: MultiTouchRecognizer){
-        print("MULTIPLE FINGERS")
     }
     
     
     func moveCircle(press: UILongPressGestureRecognizer) {
         let point = press.location(in: self.view)
+        var state = false
         let filteredSubviews = view.subviews.filter {
             subView -> Bool in return subView.frame.contains(point)
         }
-        guard let subviewPressed = filteredSubviews.last else {
-            return
-        }
+        if(!state){
+            guard let subviewPressed = filteredSubviews.last else {
+                return
+            }
         let center = subviewPressed.center
         self.view.bringSubviewToFront(subviewPressed)
         
         switch press.state {
         case .began:
+                state = true
                 offsetX = point.x-center.x
                 offsetY = point.y-center.y
                 UIView.animate(withDuration: 0.2) {
@@ -108,6 +110,7 @@ class CircleSpawnController: UIViewController {
                     subviewPressed.transform = CGAffineTransform(scaleX: 1, y: 1)
                     subviewPressed.alpha = 1
                 }
+                state = false
             case .changed:
                 subviewPressed.center = CGPoint(x: CGFloat(point.x-offsetX), y: CGFloat(point.y-offsetY))
             case .possible:
@@ -116,4 +119,5 @@ class CircleSpawnController: UIViewController {
                 return
         }
     }
+}
 }
