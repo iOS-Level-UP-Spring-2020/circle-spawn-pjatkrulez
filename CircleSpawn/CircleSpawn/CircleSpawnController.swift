@@ -1,6 +1,8 @@
 import UIKit
 class CircleSpawnController: UIViewController {
     
+    var offsetX: CGFloat = 0
+    var offsetY: CGFloat = 0
 
     override func loadView() {
         view = UIView()
@@ -76,8 +78,6 @@ class CircleSpawnController: UIViewController {
         
     }
     func moveCircle(press: UILongPressGestureRecognizer) {
-        var offsetX: CGFloat = 0
-        var offsetY: CGFloat = 0
         let point = press.location(in: self.view)
         let filteredSubviews = view.subviews.filter {
             subView -> Bool in return subView.frame.contains(point)
